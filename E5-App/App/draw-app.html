@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Draw</title>
+    <link rel="stylesheet" href="draw-app-style.css">
+    <link rel="icon" href="../../img/KClogo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+    <ul>
+        <li><a class="nav effect-shine" id="galery" href="../Galery/draw-galery.html">Galery</a></li>
+        <a href="../Galery/draw-galery.html"><img src="../../img/KClogo.png" style="width: 200px;"></a>
+        <li><a class="nav effect-shine" id="app" href="../App/draw-app.html">Draw</a></li>
+        <li><a id="profile" href="../Profile/draw-profile.html"><img id="pp"></a></li>
+    </ul>
+
+    <div class="bg-img"></div>
+
+    <canvas id="canvas"></canvas>
+
+    <form>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="The title"/>
+
+        <label for="descr">Description</label>
+        <textarea id="descr" name="descr" placeholder="Description of the drawing" rows="3" cols="33"></textarea>
+
+        <label for="ispublic">Public</label>
+        <input type="checkbox" id="ispublic" name="ispublic"/>
+    </form>
+
+    <nav class="tools-bar">
+        <div class="button button-clear" data-clear><i class="fa-solid fa-trash"></i></div>
+        <div class="button button-clear" id="save"><i class="fa-solid fa-save"></i></div>
+    </nav>
+
+    <nav class="thickness-bar">
+        <div class="thickness" data-thickness="4"></div>
+        <div class="thickness" data-thickness="12"></div>
+        <div class="thickness active" data-thickness="24"></div>
+        <div class="thickness" data-thickness="48"></div>
+        <div class="thickness" data-thickness="128"></div>
+    </nav>
+
+    <nav class="color-bar">
+        <div class="color" data-color="#9b59b6"></div>
+        <div class="color" data-color="#3498db"></div>
+        <div class="color" data-color="#2ecc71"></div>
+        <input type="color" id="picker" class="color picker active" value="#000000"/>
+        <div class="color" data-color="#f1c40f"></div>
+        <div class="color" data-color="#e67e22"></div>
+        <div class="color" data-color="#E73C61"></div>
+    </nav>
+
+    <input id="drawing" type="hidden" value=""/>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script src="draw-app-script.js"></script>
+<script type="module" src="draw-app-db.js"></script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Draw</title>
+  <link rel="stylesheet" href="draw-galery-style.css">
+  <link rel="icon" href="../../img/KClogo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <ul>
+    <li><a class="nav effect-shine" id="galery" href="../Galery/draw-galery.html">Galery</a></li>
+    <a href="../Galery/draw-galery.html"><img src="../../img/KClogo.png" style="width: 200px;"></a>
+    <li><a class="nav effect-shine" id="app" href="../App/draw-app.html">Draw</a></li>
+    <li><a id="profile" href="../Profile/draw-profile.html"><img id="pp"></a></li>
+  </ul>
+
+  <div id="modal" style="display: none;">
+      <input id="drawingId" type="hidden" value="">
+      <img id="modal-image" src=""/>
+      <img id="modal-author" src=""/>
+      <h2 id="modal-title"></h2>
+      <p id="modal-descr"></p>
+      <div id="modal-comment">
+        <h3>Commentaries</h3>
+        <input class="comment-input" id="comment" type="text" placeholder="Your comment..."/>
+        <a class="comment-send" id="send"><i class="fa-solid fa-message"></i></a>
+        <div id="comment-zone"></div>
+      </div>
+  </div>
+
+  <div class="container container-masonry"></div>
+
+  <script id="item-template" type="text/x-handlebars-template">
+    {{#each items}}
+    <div class="item" id="{{id}}" onclick="openModal('{{id}}', '{{avatar}}')">
+      <div class="element-stack">
+        <img class="item-image" src="{{image}}" alt="" />
+      </div>
+      <div class="item-info">
+        <div class="item-pin-count element">
+          <i class="fa fa-heart" aria-hidden="true"></i>
+          {{likeCount}}
+        </div>
+        <div class="element-stack">
+          <h3 class="item-title">{{title}}</h3>
+        </div>
+        <div class="item-user element-stack">
+          <div class="item-avatar" style="background-image: url({{avatar}});"></div>
+          <div class="item-user-info">
+            <div class="item-username">{{name}}</div>
+            <div class="item-tagline">{{tagline}}</div>
+          </div>
+        </div>
+       </div>
+    </div>
+    {{/each}}
+  </script>
+</body>
+
+<script>
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-image");
+  const modalAuthor = document.getElementById("modal-author");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDesc = document.getElementById("modal-descr");
+  const drawingId = document.getElementById("drawingId");
+
+  function openModal(id, avatar) {
+    document.body.style.overflow = 'hidden';
+
+    modal.style.display = "block";
+    drawingId.value = id;
+
+    drawingId.dispatchEvent(new Event("change"));
+    const item = document.getElementById(id);
+
+    modalAuthor.src = avatar;
+    modalImg.src = item.childNodes[1].childNodes[1].src;
+    modalTitle.innerText = item.childNodes[3].childNodes[3].childNodes[1].innerText;
+    modalDesc.innerText = item.childNodes[3].childNodes[5].childNodes[3].childNodes[3].innerText;
+  }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+<script type="module" src="draw-galery-script.js"></script>
+</html>

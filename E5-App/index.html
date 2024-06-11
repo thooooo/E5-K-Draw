@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Draw</title>
+    <link rel="stylesheet" href="draw-login-style.css">
+    <link rel="icon" href="../img/KClogo.png">
+</head>
+<body>
+    <div class="form-structor">
+        <form class="signup">
+            <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+            <div class="form-holder">
+                <input id="username-signup" type="text" class="input" placeholder="Username" />
+                <input id="email-signup" type="email" class="input" placeholder="Email" />
+                <input id="password-signup" type="password" class="input" placeholder="Password" />
+            </div>
+            <button class="submit-btn">Sign up</button>
+        </form>
+        <form class="login slide-up" action="./Galery/draw-galery.html">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                <div class="form-holder">
+                    <input id="user-login" type="text" class="input" placeholder="Email / Username" />
+                    <input id="password-login" type="password" class="input" placeholder="Password" />
+                </div> 
+                <button class="submit-btn" type="submit">Log in</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+<script src="draw-login-script.js"></script>
+<script type="module" src="draw-login-db.js"></script>
+</html>
