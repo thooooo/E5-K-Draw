@@ -15,80 +15,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 			document.getElementById("pp").src = data[i].users.pp;
 		}
 	}
+	
+	createTable(data);
   
-	var demo = {
-	
-		defaultOptions: {
-			$container: $('.container-masonry'),
-			$template: $('#item-template'),
-			gutter: 20,
-			imgWidth: 236,
-			itemSelector: '.item',
-			count: data.length,
-		},
-	
-		options: {},
-	
-		items: [],
-	
-		init: function(options) {
-			var self = this;
-			self.options = $.extend({}, self.defaultOptions, options);
-			self.getData(function(){
-				var $container = self.options.$container;
-				var html = self.generateHtml(self.options.$template, self.items);
-				$container.append(html);
-				self.startMasonry($container);
-				self.loadImageMasonry($container);
-			});
-		},
-		
-		getData: function(callback) {
-			for (var i = 0; i < data.length; i++) {
-				if (data[i].drawing.is_public) {
-					this.items.push({
-						id: data[i].drawing.id,
-						image: data[i].drawing.image_data,
-						title: data[i].drawing.title,
-						likeCount: this.getRandomIntInclusive(1, 999),
-						avatar: data[i].users.pp,
-						name: data[i].users.username,
-						tagline: data[i].drawing.descr,
-					});
-				}
-			}
-			if (callback) callback();
-		},
-		
-		generateHtml: function($selector, items) {
-			var source   = $selector.html();
-			var template = Handlebars.compile(source);
-			return template({items: items});
-		},
-		
-		startMasonry: function($container) {
-			$container.masonry({
-			itemSelector: this.options.itemSelector,
-			columnWidth: this.options.itemWidth +  this.options.gutter,
-			fitWidth: true,
-			});
-		},
-		
-		loadImageMasonry: function($container) {
-			$container.imagesLoaded().progress(function() {
-			$container.masonry('layout');
-			});
-		},
-		
-		getRandomIntInclusive: function (min, max) {
-			min = Math.ceil(min);
-			max = Math.floor(max);
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		},
-
-	};
-	demo.init();
-
 	// Comments
 
 	const sendBtn = document.getElementById("send");
@@ -123,4 +52,103 @@ document.addEventListener("DOMContentLoaded", async function () {
 			}
 		}		
 	});
+
+
+	// Search
+
+	const searchbtn = document.getElementById("search-btn");
+
+	searchbtn.addEventListener("click", async function(event) {
+		event.preventDefault();
+
+		const searchinfo = document.getElementById("drawing-search").value;
+
+		const { data } = await supabase
+			.from('users_drawing')
+			.select('drawing(id, title, descr, image_data, is_public), users(id, username, pp)')
+			.like('drawing.title', '%' + searchinfo + '%')
+			.not("drawing", "is", null)
+
+		createTable(data);
+	});
 });
+
+
+function createTable(data) {
+
+	document.getElementById('container').innerHTML = "";
+
+	var demo = {
+	
+		defaultOptions: {
+			$container: $('.container-masonry'),
+			$template: $('#item-template'),
+			gutter: 20,
+			imgWidth: 236,
+			itemSelector: '.item',
+			count: data.length,
+		},
+	
+		options: {},
+	
+		items: [],
+	
+		init: function(options) {
+			var self = this;
+			self.options = $.extend({}, self.defaultOptions, options);
+			self.getData(function() {
+				var $container = self.options.$container;
+				var html = self.generateHtml(self.options.$template, self.items);
+				$container.append(html);
+				self.startMasonry($container);
+				self.loadImageMasonry($container);
+			});
+		},
+		
+		getData: function(callback) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].drawing.is_public) {
+					this.items.push({
+						id: data[i].drawing.id,
+						image: data[i].drawing.image_data,
+						title: data[i].drawing.title,
+						likeCount: this.getRandomIntInclusive(1, 999),
+						avatar: data[i].users.pp,
+						name: data[i].users.username,
+						tagline: data[i].drawing.descr,
+					});
+				}
+			}
+			if (callback) callback();
+		},
+		
+		generateHtml: function($selector, items) {
+			var source   = $selector.html();
+			var template = Handlebars.compile(source);
+			return template({items: items});
+		},
+		
+		startMasonry: function($container) {
+			$container.masonry({
+				itemSelector: this.options.itemSelector,
+				columnWidth: this.options.imgWidth + this.options.gutter,
+				fitWidth: true,
+			});
+		},
+		
+		loadImageMasonry: function($container) {
+				$container.imagesLoaded().progress(function() {
+				$container.masonry('layout');
+			});
+		},
+		
+		getRandomIntInclusive: function (min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		},
+	};
+	demo.init();
+
+	console.log(demo);
+}

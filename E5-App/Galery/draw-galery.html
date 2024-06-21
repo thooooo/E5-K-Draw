@@ -19,6 +19,7 @@
   </ul>
 
   <div id="modal" style="display: none;">
+      <i class="fa-solid fa-xmark" onclick="document.getElementById('modal').style.display = 'none'"></i>
       <input id="drawingId" type="hidden" value="">
       <img id="modal-image" src=""/>
       <img id="modal-author" src=""/>
@@ -32,11 +33,15 @@
       </div>
   </div>
 
-  <div class="container container-masonry"></div>
+  <div id="search-bar">
+    <input type="search" id="drawing-search" name="q" placeholder="Search a drawing..."/>
+    <button id="search-btn">Search</button>
+  </div>
+  <div id="container" class="container container-masonry"></div>
 
   <script id="item-template" type="text/x-handlebars-template">
     {{#each items}}
-    <div class="item" id="{{id}}" onclick="openModal('{{id}}', '{{avatar}}')">
+    <div class="item" id="{{id}}" onclick="openModal('{{id}}', '{{avatar}}')" style="position: relative; left: 10px; top: 10px;">
       <div class="element-stack">
         <img class="item-image" src="{{image}}" alt="" />
       </div>

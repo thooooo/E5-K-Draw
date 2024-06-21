@@ -19,6 +19,14 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+.fa-xmark {
+  position: absolute;
+  scale: 2;
+  left: 90vw;
+  top: 10vw;
+  cursor: pointer;
+}
+
 /* NAV BAR */
 ul {
     position: fixed;
@@ -60,6 +68,32 @@ ul li a {
     color: #fff;
 }
 
+#search-bar {
+    position: relative;
+    left: 25vw;
+    top: 7vw;
+}
+
+#drawing-search {
+    width: 50vw;
+    border-radius: 25px;
+    border-color: transparent;
+    padding: 5px;
+    background-color: #dadfff;
+}
+
+#search-btn {
+    border-radius: 25px;
+    border-color: transparent;
+    padding: 5px;
+    background-color: #dadfff;
+    cursor: pointer;
+}
+
+#search-btn:hover {
+    scale: 110%;
+}
+
 .effect-shine:hover {
     -webkit-mask-image: linear-gradient(-75deg, rgba(0, 0, 0, .6) 30%, #000 50%, rgba(0, 0, 0, .6) 70%);
     -webkit-mask-size: 200%;
@@ -95,8 +129,10 @@ ul li a {
 
 /* GALERIE */
 .container {
-    margin: 0 auto;
-    margin-top: 15vh;
+    display: flex;
+    margin-left: 2vw;
+    margin-top: 10vw;
+    float: left;
 }
 
 .container,
@@ -110,9 +146,11 @@ ul li a {
 }
 
 .item {
+    position: relative;
     width: 256px;
     border-radius: 6px;
     cursor: pointer;
+    float: left;
 }
 
 .item:hover {
@@ -194,7 +232,6 @@ ul li a {
 #modal {
     position: absolute;
     padding-left: 13vw;
-    margin-top: -170px;
     width: 100vw;
     height: 110vh;
     background-color: #0000002a;
